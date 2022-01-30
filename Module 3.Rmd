@@ -1,0 +1,51 @@
+---
+title: "Module 3"
+author: "Patricia McGee"
+date: "1/30/2022"
+output: html_document
+---
+
+The Module 3 instructions are as follows:
+
+## Assignment Instructions
+
+**[Assignment # 3
+The data set below is based on the presidential election during 2016, where it outlined the name of the candidate, the source of the poll (ABC vs, CBS). Discuss your result in your blog. Important note, I made up this data, so this data does not reflect what really happened in the election.]**
+
+**[#Name <- c("Jeb", “Donald”, "Ted”, “Marco” “Carly”, “Hillary”, “Berine”)]**
+
+ **[#ABC political poll results <- c(4, 62 51, 21, 2, 14, 15)]**
+
+ **[#CBS political poll results <- c(12, 75, 43, 19, 1, 21, 19)]** 
+
+**[Read:The Art of R programming: a tour of statistical software design by Norman Matloff Chapter 3-5. ]**
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Vectors
+
+To start, we will create the specified vectors.
+
+Here are the three vectors. 
+I corrected the spelling of Bernie, and created valid names for the polls.
+
+```{r vectors, echo=TRUE}
+(Name <- c("Jeb", "Donald", "Ted", "Marco", "Carly", "Hillary", "Bernie"))
+(ABCpoll <- c(4, 62, 51, 21, 2, 14, 15))
+(CBSpoll <- c(12, 75, 43, 19, 1, 21, 19))
+
+```
+
+## Creating a Data Frame
+
+Here we will combine the vectors to create a data frame, which we will name **ElectionPoll**.
+
+```{r data frame, echo=TRUE}
+(ElectionPoll <- data.frame(Name, ABCpoll, CBSpoll))
+
+```
+
+As you can see, we now have a data frame consisting of 3 variables (columns) with 7 observations (rows) each. 
