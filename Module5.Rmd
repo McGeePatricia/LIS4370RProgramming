@@ -35,28 +35,20 @@ Norman Matloff, The Art of R programming pp. 189-205.
 
 
 ```{r Data, echo=TRUE}
+A <- matrix(1:100, nrow=10)  
+B <- matrix(1:1000, nrow=10)
 
+str(A)
+str(B)
 
+# solve(A) creates an error: Lapack routine dgesv: system is exactly singular: U[6,6] = 0
+# solve(B) creates a different error: 'a' (10 x 100) must be square
+# matrix B is not square, so this does not work.
+# solve(A,B) this also gives us an error: Lapack routine dgesv: system is exactly singular: U[6,6] = 0
 
+det(A)
 
-```
-
-## Plots
-
-Here we are creating a side by side boxplot and a histogram
-
-```{r plots, echo=TRUE}
-boxplot(Freq, First, Second, FinalDecision, data = patients, names = c("Freq", "First", "Second", "FinalDecision"))
-
-#BP is on a different scale from the other values, so here that is as a separate boxplot
-boxplot(BP, data = patients, xlab = "BP")
-
-hist(Freq, data = patients)
-hist(BP, data = patients, xlim = range(BP))
-hist(First, data = patients)
-hist(Second, data = patients)
-hist(FinalDecision, data = patients)
-
+# because the determinant of matrix A is 0, there is no inverse. 
 
 ```
 
