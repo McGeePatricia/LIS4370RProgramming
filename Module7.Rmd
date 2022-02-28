@@ -1,0 +1,117 @@
+---
+title: "Module 7"
+author: "Patricia McGee"
+date: "2/27/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment Instructions
+
+Module # 7 assignment
+
+
+Download any type of data (from the web or use datasets package) or create your own set. 
+
+Then, on the second step, determine if generic function as discussed in this module can be assigned to your data set, and if not, why? (Example, here is list of data set in R)
+data("mtcars")
+head (mtcars, 6)
+list(mtcars, 6)
+
+In third and last step, explore if S3 and S4 can be assigned to your data set.
+ 
+In your blog, discuss the following questions:
+
+How do you tell what OO system (S3 vs. S4) an object is associated with?
+
+How do you determine the base type (like integer or list) of an object?
+
+What is a generic function?
+
+What are the main differences between S3 and S4?
+
+In your GitHub, create two examples of S3 and S4.
+
+ 
+
+Example of data set for S3
+
+s <- list(name = "Myself", age = 29, GPA = 3.5) 
+> s3
+$name
+[1] "Myself"
+$age
+[1] 29
+$GPA
+[1] 3.5
+For S4 it is a reminder, S4 objects are created using the new() function. 
+
+> s4 <- new("student",name="Myself", age=29, GPA=3.5)
+ > s4
+An object of class "student"
+Slot "name":
+[1] "Myself"
+Slot "age":
+[1] 29
+Slot "GPA":
+[1] 3.5
+
+## My Code
+
+First, lets look at all the generic methods. Then, we will examine the mtcars dataset using some generic functions. 
+
+```{r generic functions, echo=TRUE}
+#install.packages("pryr")
+library(pryr)
+
+methods(class = "default")
+
+data(mtcars)
+head(mtcars,6)
+str(mtcars)
+list(mtcars,6)
+typeof(mtcars)
+otype(mtcars)
+
+
+```
+
+## Creating S3 and S4 examples
+
+Here I have created an example each of S3 and S4.
+
+```{r OOP examples, echo=TRUE}
+# S3 example
+
+s3 <- list(name = "Maximus", age = 9, color = "tuxedo", species = "cat")
+class(s3) <- "animal"
+
+attributes(s3)
+otype(s3)
+
+# S4 example
+
+setClass("animal", representation(name = "character",age = "numeric", color = "character", species = "character"))
+
+Maximus <- new("animal", name = "Maximus", age = 9, color = "tuxedo", species = "cat")
+Maximus
+otype(Maximus)
+
+```
+
+In your blog, discuss the following questions:
+
+## How do you tell what OO system (S3 vs. S4) an object is associated with?
+You can use the otype() function from the pryr package to determine the object type.
+
+## How do you determine the base type (like integer or list) of an object?
+You can use a function such as typeof() to determine the class of an object
+
+## What is a generic function?
+A generic function is a function which dispatches methods.
+
+## What are the main differences between S3 and S4?
+S4 is safer, has more rigorous error checking, can dispatch on multiple arguments, and does not allow you to easily change the class of existing objects.
