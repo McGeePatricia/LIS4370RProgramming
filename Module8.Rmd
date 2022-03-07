@@ -1,0 +1,110 @@
+---
+title: "Module 8"
+author: "Patricia McGee"
+date: "3/6/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment Instructions
+
+Please following steps 1-3
+Step # 1 Import assignment 6 Data-set to R  Download Import assignment 6 Data-set to R. Then, Run the commend "mean" using Sex as the category (use plyr package for this operation). Last commend in this step: write the resulting output to a file.
+> <- read.table("<FileName>.txt", header = TRUE)
+
+>install.packages("pryr")
+require(pryr)
+require(ISLR)
+require(boot)
+install.packages("plyr")
+library(data.table)
+library(plyr)
+etc
+
+#----Read file from computer via prompt
+Student-assignment-6 <- read.table("<FileName>.txt", header = TRUE)
+Student-assignment-6
+StudentAverage = ddply(Student,"Sex",transform,Grade.Average=mean(Grade))
+
+sex = Student$Sex
+mean(Sex)
+Step # 2 Convert the data set to a dataframe for names whos' name contains the letter i, then create a new data set with those names, Write those names to a file separated by comma’s (CSV)
+The commends
+
+>write.table(students_gendered_mean, "Students_Gendered_Mean")
+
+# Filter the original data set to include only data for which the student name
+# contained the letter i.
+>i_students <- subset(students, grepl("i", students$Name, ignore.case=T))
+
+Step # 3
+Write the filtered data set and convert it to CSV file
+Hint(file.choose() and subset())
+
+Enclosed is the step by step solution  Download step by step solutionPreview the document for the assignment.
+Post your findings on your blog.  
+
+## My Initial Notes and Packages
+
+First, I downloaded the data set, and I renamed it Module8Dataset.txt to match this week's assignment number.
+
+Then, the assignment mentions that we need the following packages:
+pryr
+ISLR
+boot
+plyr
+data.table
+
+Below, I have written the code to install/access these packages.
+
+```{r Packages, echo=TRUE}
+#install.packages("pryr")
+require(pryr)
+require(ISLR)
+require(boot)
+require(plyr)
+require(data.table)
+
+```
+
+## Step 1
+
+This step consists of reading in the data file using the plyr package. We will be using the read.table() function to read our data in, and we will call it mod8Data 
+
+We look at the head of the data, and see that we have 4 columns for Name, Age, Sex, and Grade.
+
+Now we are going to calculate the mean Grade for each Sex, and append this column to our data table. This is done using the ddply() function with transform. We'll create a new table for this called mod8Step1
+
+For the last part of this step, we write this to a text file using write.table. We will call our file "Mod8step1data.csv" and we use row.names = FALSE so that it does not assign the row number to the first column and thus misalign the column names.
+
+
+
+```{r Step1, echo=TRUE}
+mod8Data <- read.table("Module8Dataset.txt", header = TRUE, sep = ",")
+head(mod8Data)
+
+mod8Step1 <- ddply(mod8Data,"Sex", transform, Grade.Average = mean(Grade))
+mod8Step1
+
+write.table(mod8Step1, "Mod8step1data.csv", row.names = FALSE, sep = ",")
+
+```
+
+## Step 2 and 3
+
+For this step, we return to the original data set, mod8Data, and we want to subset to only those students whose name contains the letter i (either capital I or lowercase i).
+To do this, we use the grepl() and subset() functions. We set it to ignore.case = TRUE in the grepl function so that case is ignored during matching.  We will call this mod8Step2
+
+Step 3 is to write this data to a csv file, which we will call "Mod8step2data.csv"
+
+```{r Step2, echo=TRUE}
+mod8Step2 <- subset(mod8Data, grepl("i", mod8Data$Name, ignore.case = TRUE))
+mod8Step2
+
+write.table(mod8Step2, "Mod8step2data.csv", row.names = FALSE, sep = ",")
+
+```
+
