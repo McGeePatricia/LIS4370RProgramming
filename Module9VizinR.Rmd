@@ -1,0 +1,112 @@
+---
+title: "Module 9 Visualization in R"
+author: "Patricia McGee"
+date: '2022-03-13'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## The Assignment Instructions
+
+Module # 9:
+In this module, we reviewed three types of visualization in R: basic visualization without any package, lettuce and ggplot2.
+Choose any data set for your visualization from Vincent Arel Bundock dataset list: https://vincentarelbundock.github.io/Rdatasets/datasets.html (Links to an external site.)
+Using this data, generate three types of visualization on the data set you have chosen. In your blog, discuss and present your three visualizations you will create and express your opinion on these three different types of graphics output.
+
+Yours
+Dr. Friedman
+
+## My Data and Code
+
+I chose the OECDGas dataset from the indicated website. 
+This data consists of Panel data on gasoline consumption in 18 OECD countries over 19 years, 1960–1978.
+
+It is A data frame containing 342 observations on 6 variables.
+
+country
+Factor indicating country.
+
+year
+Year.
+
+gas
+Logarithm of motor gasoline consumption per car.
+
+income
+Logarithm of real per-capita income.
+
+price
+Logarithm of real motor gasoline price.
+
+cars
+Logarithm of the stock of cars per-capita.
+
+Let's start by reading in the data and saving it as gas.
+
+```{r data, echo=TRUE}
+gas <- read.csv("OECDGas.csv")
+
+# The first column is just a row count, we can remove that.
+gas <- gas[,-1]
+head(gas)
+```
+
+## Plotting the Data using Main Plot Functions
+
+Let's create a plot of the data using the plot() function.
+
+```{r mainplots, echo=TRUE}
+# Plot of all the data
+plot(gas)
+
+# Now let's just plot the gas by year.
+plot(gas$year,gas$gas)
+```
+
+This gives us some basic plots, but leaves much to be desired. Like for the last plot, gas by year, it would be nice to also see this by country, but we are limited with the plot() function.
+
+## Plotting Using the Lattice Package
+
+Let's try this again using the Lattice package and see what it gives us.
+
+```{r latticeplots, echo=TRUE}
+#install.packages("lattice")
+library(lattice)
+
+# Let's try the same plot of gas by year.
+xyplot(gas~year, gas)
+
+# Now let's add a grid, and group by country.
+xyplot(gas~year, gas, grid = TRUE, group = country)
+
+# That's better, but still needs some work. Let's add a key for the countries.
+xyplot(gas~year, gas, grid = TRUE, group = country, auto.key = TRUE)
+
+
+```
+
+Well that's not quite what we want. Let's move on to the ggplot2 package.
+
+## Plotting Using ggplot2 Package
+
+Now we will try this again using the ggplot2 package and see if we can improve.
+
+```{r ggplot2plots, echo=TRUE}
+library(ggplot2)
+
+# We will start with a scatterplot of gas by year, with the color indicating the country.
+ggplot(gas, aes(year, gas, color = country))+
+  geom_point()
+
+# This looks much nicer than the lattice plot. Let's try adding to it.
+ggplot(gas, aes(year, gas, color = country))+
+  geom_point()+
+  geom_smooth()+
+  ggtitle("Gasoline Consumption for OECD Countries by Year")
+
+```
+
+Now we have added a title, added regression lines and confidence intervals to our plot on top of the points, and we can see the trends in the data over time much easier using ggplot.
